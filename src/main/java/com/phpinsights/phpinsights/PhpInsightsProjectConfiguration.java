@@ -22,6 +22,10 @@ public class PhpInsightsProjectConfiguration extends QualityToolProjectConfigura
         return ServiceManager.getService(project, PhpInsightsProjectConfiguration.class);
     }
 
+    public String getInspectionId() {
+        return new PhpInsightsInspection().getID();
+    }
+
     @Nullable
     public PhpInsightsProjectConfiguration getState() {
         return this;

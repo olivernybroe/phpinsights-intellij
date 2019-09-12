@@ -1,0 +1,4 @@
+[![JetBrains plugins](https://img.shields.io/jetbrains/plugin/d/13004-php-insights.svg)](https://plugins.jetbrains.com/plugin/13004-php-insights)
+![GitHub stars](https://img.shields.io/github/stars/olivernybroe/phpinsights-intellij.svg?label=Stars)
+![Jetbrains rating](https://img.shields.io/badge/dynamic/json.svg?label=JetBrains%20rating&url=https%3A%2F%2Fplugins.jetbrains.com%2Fplugin%2FgetPluginInfo%3FpluginId%3D13004&query=%24.totalRating&suffix=/5)
+[![JetBrains Plugins](https://img.shields.io/jetbrains/plugin/v/13004-php-insights.svg)](https://plugins.jetbrains.com/plugin/13004-php-insights)

@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>dk.lost_world.phpinsights</id>
     <name>Php Insights</name>
-    <vendor email="olivernybroe@gmail.com" url="http://www.yourcompany.com">Github</vendor>
+    <vendor email="olivernybroe@gmail.com" url="https://github.com/olivernybroe/phpinsights-intellij">Oliver Nybroe</vendor>
 
     <description><![CDATA[
     Enter short description for your plugin here.<br>
