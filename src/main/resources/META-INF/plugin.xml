@@ -1,0 +1,49 @@
+<idea-plugin>
+    <id>dk.lost_world.phpinsights</id>
+    <name>Php Insights</name>
+    <vendor email="olivernybroe@gmail.com" url="http://www.yourcompany.com">Github</vendor>
+
+    <description><![CDATA[
+    Enter short description for your plugin here.<br>
+    <em>most HTML tags may be used</em>
+    ]]></description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.jetbrains.php</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationService
+                serviceImplementation="com.phpinsights.phpinsights.PhpInsightsConfigurationManager$PhpInsightsAppConfigurationManager"
+        />
+
+        <projectService serviceImplementation="com.phpinsights.phpinsights.PhpInsightsBlackList"/>
+        <projectService serviceImplementation="com.phpinsights.phpinsights.PhpInsightsProjectConfiguration"/>
+
+        <projectService serviceImplementation="com.phpinsights.phpinsights.PhpInsightsConfigurationManager"/>
+        <projectService serviceImplementation="com.phpinsights.phpinsights.PhpInsightsConfigurationManager$PHPInsightsProjectConfigurationManager"/>
+
+        <localInspection language="PHP" shortName="PhpInsightsInspection" displayName="PHP Insights validation" groupPath="PHP" groupName="Quality tools"
+                         enabledByDefault="true" level="WEAK WARNING"
+                         implementationClass="com.phpinsights.phpinsights.PhpInsightsInspection"/>
+
+        <externalAnnotator language="PHP" implementationClass="com.phpinsights.phpinsights.PhpInsightsAnnotator"/>
+    </extensions>
+
+    <extensions defaultExtensionNs="com.jetbrains.php">
+        <composerConfigClient implementation="com.phpinsights.phpinsights.PhpInsightsComposerConfig"/>
+        <config.interpreters.PhpInterpretersStateListener implementation="com.phpinsights.phpinsights.PhpInsightsConfigurationManager"/>
+        <tools.projectConfigurableForm instance="com.phpinsights.phpinsights.PhpInsightsConfigurable"/>
+    </extensions>
+
+    <actions>
+        <group id="PHPInsightsGroup">
+            <add-to-group group-id="PHPQualityToolsAddToIgnoredList" anchor="last"/>
+            <action id="PHPInsightsAddToIgnored"
+                    class="com.phpinsights.phpinsights.PhpInsightsAddToIgnoredAction"
+                    text="Add to PHPInsights Ignore List" description="Add to PHPInsights Ignore List"/>
+        </group>
+    </actions>
+</idea-plugin>
