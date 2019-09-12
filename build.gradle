@@ -26,7 +26,7 @@ intellij {
     updateSinceUntilBuild true
 }
 patchPluginXml {
-    sinceBuild '173'
+    sinceBuild '183'
     untilBuild '192.*'
     version project.version
     pluginDescription """The perfect starting point to analyze the code quality of your PHP projects"""
