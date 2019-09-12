@@ -4,8 +4,8 @@
     <vendor email="olivernybroe@gmail.com" url="https://github.com/olivernybroe/phpinsights-intellij">Oliver Nybroe</vendor>
 
     <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
+    A plugin for PHP Insights. <br>
+    This plugin adds support for showing insights inline and runs automatically when you make changes to a file.
     ]]></description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
