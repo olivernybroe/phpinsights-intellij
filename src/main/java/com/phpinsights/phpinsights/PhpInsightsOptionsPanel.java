@@ -1,15 +1,13 @@
 package com.phpinsights.phpinsights;
 
 import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.fileChooser.FileChooser;
 import com.intellij.openapi.fileChooser.FileChooserDescriptor;
-import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.TextBrowseFolderListener;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
+import com.intellij.openapi.ui.VerticalFlowLayout;
 import com.intellij.ui.DocumentAdapter;
-import com.intellij.ui.components.JBCheckBox;
-import com.jetbrains.php.config.interpreters.PhpTextFieldWithSdkBasedBrowse;
-import com.jetbrains.php.tools.quality.phpcs.PhpCSOptionsPanel;
+import com.intellij.ui.components.*;
+import com.intellij.util.ui.GridBag;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -22,25 +20,19 @@ import java.awt.*;
 class PhpInsightsOptionsPanel {
     private static final Logger LOG = Logger.getInstance(PhpInsightsOptionsPanel.class);
     private JBCheckBox showInsightNameCheckBox;
-    private PhpInsightsInspection inspection;
+    private TextFieldWithBrowseButton browseButton;
 
     PhpInsightsOptionsPanel(PhpInsightsInspection inspection) {
-        this.inspection = inspection;
-
+        // Add the show insight name button.
         this.showInsightNameCheckBox = new JBCheckBox("Show insight names");
         this.showInsightNameCheckBox.setSelected(inspection.SHOW_INSIGHT_NAMES);
         this.showInsightNameCheckBox.addActionListener(
             e -> inspection.SHOW_INSIGHT_NAMES = this.showInsightNameCheckBox.isSelected()
         );
 
-    }
-
-    JPanel getContentPane() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(this.showInsightNameCheckBox);
-
-        TextFieldWithBrowseButton browseButton = new TextFieldWithBrowseButton();
+        // Add the config path browse button.
+        browseButton = new TextFieldWithBrowseButton();
+        browseButton.setText(inspection.CONFIG_PATH);
         browseButton.addBrowseFolderListener(
             new TextBrowseFolderListener(
                 new FileChooserDescriptor(
@@ -55,10 +47,18 @@ class PhpInsightsOptionsPanel {
         );
         browseButton.getTextField().getDocument().addDocumentListener(new DocumentAdapter() {
             protected void textChanged(@NotNull DocumentEvent e) {
-                PhpInsightsOptionsPanel.this.inspection.CONFIG_PATH = browseButton.getText();
+                inspection.CONFIG_PATH = browseButton.getText();
             }
         });
 
+    }
+
+    JPanel getContentPane() {
+        JBPanel panel = new JBPanel(new VerticalFlowLayout());
+        panel.add(this.showInsightNameCheckBox);
+
+
+        panel.add(new JBLabel("Config file:"));
         panel.add(browseButton);
 
         return panel;

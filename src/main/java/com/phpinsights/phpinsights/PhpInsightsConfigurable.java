@@ -7,6 +7,7 @@ import com.jetbrains.php.tools.quality.QualityToolConfigurationComboBox;
 import com.jetbrains.php.tools.quality.QualityToolProjectConfigurableForm;
 import com.jetbrains.php.tools.quality.QualityToolValidationException;
 import com.jetbrains.php.tools.quality.QualityToolsIgnoreFilesConfigurable;
+import com.jetbrains.php.tools.quality.phpcs.PhpCSValidationInspection;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -51,6 +52,11 @@ public class PhpInsightsConfigurable extends QualityToolProjectConfigurableForm 
         } catch (QualityToolValidationException var3) {
             return var3.getMessage();
         }
+    }
+
+    @NotNull
+    protected String getInspectionShortName() {
+        return (new PhpCSValidationInspection()).getShortName();
     }
 
     @NotNull
