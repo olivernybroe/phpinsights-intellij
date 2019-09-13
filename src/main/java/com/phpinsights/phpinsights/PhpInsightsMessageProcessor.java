@@ -1,7 +1,11 @@
 package com.phpinsights.phpinsights;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.intellij.codeHighlighting.HighlightDisplayLevel;
+import com.intellij.notification.Notification;
+import com.intellij.notification.NotificationType;
+import com.intellij.notification.Notifications;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.project.Project;
 import com.jetbrains.php.tools.quality.QualityToolAnnotatorInfo;
@@ -26,17 +30,28 @@ public class PhpInsightsMessageProcessor extends QualityToolMessageProcessor {
 
     @Override
     public void parseLine(String line) {
-        PhpInsightJson json = gson.fromJson(line, PhpInsightJson.class);
+        try {
+            PhpInsightJson json = gson.fromJson(line, PhpInsightJson.class);
 
-        Stream.of(
-            json.architecture,
-            json.code,
-            json.complexity,
-            json.security,
-            json.style
-        ).flatMap(Collection::stream)
-            .map((this::toMessage))
-            .forEach(this::addMessage);
+            Stream.of(
+                json.architecture,
+                json.code,
+                json.complexity,
+                json.security,
+                json.style
+            ).flatMap(Collection::stream)
+                .map((this::toMessage))
+                .forEach(this::addMessage);
+        } catch (JsonSyntaxException exception) {
+            Notifications.Bus.notify(
+                new Notification(
+                    "PHP External Quality Tools",
+                    "PHP Insights - Failed parsing result",
+                    exception.getMessage() + "<br><br><code>"+ line + "</code>",
+                    NotificationType.ERROR
+                )
+            );
+        }
     }
 
     @Override
