@@ -14,7 +14,7 @@ dependencies {
 }
 
 group 'dk.lost_world'
-version '0.1'
+version '0.2'
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
@@ -31,7 +31,7 @@ patchPluginXml {
     version project.version
     pluginDescription """The perfect starting point to analyze the code quality of your PHP projects"""
     changeNotes """
-Added support for setting a config file.
+Added error notification when json parsing fails
 """
 }
 
