@@ -49,8 +49,8 @@ public class PhpInsightsConfigurable extends QualityToolProjectConfigurableForm 
         try {
             PhpInsightsProjectConfiguration.getInstance(this.myProject).findConfiguration(this.myProject, configuration);
             return null;
-        } catch (QualityToolValidationException var3) {
-            return var3.getMessage();
+        } catch (QualityToolValidationException exception) {
+            return exception.getMessage();
         }
     }
 
