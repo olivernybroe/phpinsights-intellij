@@ -27,11 +27,9 @@ intellij {
 }
 patchPluginXml {
     sinceBuild '183'
-    untilBuild '192.*'
     version project.version
-    pluginDescription """The perfect starting point to analyze the code quality of your PHP projects"""
     changeNotes """
-Added error notification when json parsing fails
+Added support for EAP versions.
 """
 }
 

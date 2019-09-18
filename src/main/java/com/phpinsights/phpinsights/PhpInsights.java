@@ -27,5 +27,11 @@ public enum PhpInsights {
         public String toString() {
             return "phpinsights";
         }
+    },
+    COMPOSER_NAME {
+        @Override
+        public String toString() {
+            return "nunomaduro/phpinsights";
+        }
     }
 }

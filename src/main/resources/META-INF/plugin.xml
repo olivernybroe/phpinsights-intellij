@@ -4,6 +4,8 @@
     <vendor email="olivernybroe@gmail.com" url="https://github.com/olivernybroe/phpinsights-intellij">Oliver Nybroe</vendor>
 
     <description><![CDATA[
+    The perfect starting point to analyze the code quality of your PHP projects <br>
+    <br>
     A plugin for PHP Insights. <br>
     This plugin adds support for showing insights inline and runs automatically when you make changes to a file.
     ]]></description>

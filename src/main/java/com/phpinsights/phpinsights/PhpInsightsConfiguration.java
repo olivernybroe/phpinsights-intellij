@@ -8,6 +8,9 @@ import com.jetbrains.php.tools.quality.QualityToolConfiguration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * This class is responsible for storing all the settings used in the plugin.
+ */
 public class PhpInsightsConfiguration implements QualityToolConfiguration {
     public static final String LOCAL = "Local";
     private String myPhpInsightsPath = "";
