@@ -8,7 +8,7 @@
 ![Jetbrains rating](https://img.shields.io/badge/dynamic/json.svg?label=JetBrains%20rating&url=https%3A%2F%2Fplugins.jetbrains.com%2Fplugin%2FgetPluginInfo%3FpluginId%3D13004&query=%24.totalRating&suffix=/5)
 [![JetBrains Plugins](https://img.shields.io/jetbrains/plugin/v/13004-php-insights.svg)](https://plugins.jetbrains.com/plugin/13004-php-insights)
 
-### PHP Insights support now built into PHPStorm
+### PHP Insights support built into PHPStorm
 With this plugin you will now be able to use PHP Insights directly in PHPStorm. The files will be automatically analysed
 and errors are shown directly on the line.
 
