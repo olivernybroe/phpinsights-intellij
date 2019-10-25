@@ -1,10 +1,12 @@
 package com.phpinsights.phpinsights;
 
+import org.jetbrains.annotations.NonNls;
+
 public enum PhpInsights {
     TOOL_NAME {
         @Override
         public String toString() {
-            return "PHP Insights";
+            return PhpInsightsBundle.message("TOOL_NAME");
         }
     },
 
@@ -14,24 +16,18 @@ public enum PhpInsights {
             return TOOL_NAME.toString();
         }
     },
-
-    HELP_TOPIC {
-        @Override
-        public String toString() {
-            return "settings.phpinsights";
-        }
-    },
-
-    LAUNCHER_NAME {
-        @Override
-        public String toString() {
-            return "phpinsights";
-        }
-    },
     COMPOSER_NAME {
+        @NonNls
         @Override
         public String toString() {
             return "nunomaduro/phpinsights";
+        }
+    },
+    NOTIFICATION_GROUP_DISPLAY_ID {
+        @NonNls
+        @Override
+        public String toString() {
+            return "PHP External Quality Tools";
         }
     }
 }

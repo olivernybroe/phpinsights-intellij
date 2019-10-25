@@ -14,7 +14,7 @@ dependencies {
 }
 
 group 'dk.lost_world'
-version '0.2.1'
+version '1.0.0'
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
@@ -27,9 +27,10 @@ intellij {
 }
 patchPluginXml {
     sinceBuild '183'
+    untilBuild null
     version project.version
     changeNotes """
-Added support for EAP versions.
+Rewrote the whole plugin to not extend closed source code from IntelliJ.
 """
 }
 

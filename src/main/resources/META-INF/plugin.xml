@@ -17,27 +17,18 @@
     <depends>com.jetbrains.php</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService
-                serviceImplementation="com.phpinsights.phpinsights.PhpInsightsConfigurationManager$PhpInsightsAppConfigurationManager"
-        />
-
         <projectService serviceImplementation="com.phpinsights.phpinsights.PhpInsightsBlackList"/>
-        <projectService serviceImplementation="com.phpinsights.phpinsights.PhpInsightsProjectConfiguration"/>
-
-        <projectService serviceImplementation="com.phpinsights.phpinsights.PhpInsightsConfigurationManager"/>
-        <projectService serviceImplementation="com.phpinsights.phpinsights.PhpInsightsConfigurationManager$PHPInsightsProjectConfigurationManager"/>
+        <projectService serviceImplementation="com.phpinsights.phpinsights.PhpInsightsConfiguration"/>
 
         <localInspection language="PHP" shortName="PhpInsightsInspection" displayName="PHP Insights validation" groupPath="PHP" groupName="Quality tools"
                          enabledByDefault="true" level="WEAK WARNING"
                          implementationClass="com.phpinsights.phpinsights.PhpInsightsInspection"/>
 
         <externalAnnotator language="PHP" implementationClass="com.phpinsights.phpinsights.PhpInsightsAnnotator"/>
+        <projectConfigurable groupId="settings.php.quality.tools" instance="com.phpinsights.phpinsights.PhpInsightsConfigurable"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.jetbrains.php">
-        <composerConfigClient implementation="com.phpinsights.phpinsights.PhpInsightsComposerConfig"/>
-        <config.interpreters.PhpInterpretersStateListener implementation="com.phpinsights.phpinsights.PhpInsightsConfigurationManager"/>
-        <tools.projectConfigurableForm instance="com.phpinsights.phpinsights.PhpInsightsConfigurable"/>
     </extensions>
 
     <actions>
