@@ -225,7 +225,7 @@ public class PhpInsightsAnnotator extends ExternalAnnotator<AnnotatorInfo, Messa
             }
         }
 
-        public void visitElement(PsiElement element) {
+        public void visitElement(@NotNull PsiElement element) {
             if (this.isValid) {
                 if (element instanceof PsiErrorElement) {
                     this.isValid = false;
