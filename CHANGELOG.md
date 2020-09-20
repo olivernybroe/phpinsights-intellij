@@ -5,13 +5,3 @@
 ## [Unreleased]
 ### Added
 - Add support for configuring the timeout
-
-### Changed
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
