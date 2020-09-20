@@ -10,6 +10,8 @@ import com.intellij.openapi.util.Pair;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.components.JBLabel;
+import com.intellij.ui.components.JBTextField;
+import com.intellij.ui.components.fields.IntegerField;
 import com.intellij.util.ui.UIUtil;
 import com.jetbrains.php.ui.PhpUiUtil;
 import org.jetbrains.annotations.Nls;
@@ -33,6 +35,7 @@ public class PhpInsightsConfigurable implements SearchableConfigurable, Configur
     private TextFieldWithBrowseButton toolPathField;
     private JButton validateButton;
     private JBLabel errorLabel;
+    private IntegerField timeoutField;
 
     public PhpInsightsConfigurable(PhpInsightsConfiguration configuration) {
         this.configuration = configuration;
@@ -152,7 +155,8 @@ public class PhpInsightsConfigurable implements SearchableConfigurable, Configur
      */
     @Override
     public boolean isModified() {
-        return !this.configuration.getToolPath().equals(this.toolPathField.getText());
+        return !this.configuration.getToolPath().equals(this.toolPathField.getText())
+                || this.configuration.getTimeout() != this.timeoutField.getValue();
     }
 
     /**
@@ -163,9 +167,11 @@ public class PhpInsightsConfigurable implements SearchableConfigurable, Configur
     @Override
     public void apply() {
         this.configuration.setToolPath(this.toolPathField.getText());
+        this.configuration.setTimeout(this.timeoutField.getValue());
     }
 
     public void reset() {
         this.toolPathField.setText(this.configuration.getToolPath());
+        this.timeoutField.setValue(this.configuration.getTimeout());
     }
 }

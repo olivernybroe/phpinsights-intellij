@@ -3,6 +3,8 @@
   <grid id="27dc6" binding="panel" layout-manager="FormLayout">
     <rowspec value="center:d:noGrow"/>
     <rowspec value="top:3dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:3dlu:noGrow"/>
     <rowspec value="center:d:noGrow"/>
     <rowspec value="top:3dlu:noGrow"/>
     <rowspec value="center:d:grow"/>
@@ -42,7 +44,7 @@
       </component>
       <component id="9d023" class="com.intellij.ui.components.JBLabel" binding="errorLabel">
         <constraints>
-          <grid row="2" column="0" row-span="3" col-span="5" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+          <grid row="4" column="0" row-span="3" col-span="5" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="228" height="0"/>
           </grid>
           <forms/>
@@ -69,10 +71,31 @@
       </component>
       <vspacer id="d801d">
         <constraints>
-          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
           <forms defaultalign-vert="false"/>
         </constraints>
       </vspacer>
+      <component id="2c7e3" class="com.intellij.ui.components.JBLabel">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="202" height="321"/>
+          </grid>
+          <forms defaultalign-vert="false"/>
+        </constraints>
+        <properties>
+          <focusable value="false"/>
+          <text resource-bundle="phpInsightsBundle" key="TIMEOUT_LABEL_TEXT"/>
+        </properties>
+      </component>
+      <component id="3e370" class="com.intellij.ui.components.fields.IntegerField" binding="timeoutField">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties>
+          <valueName value="ms"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>
