@@ -4,16 +4,8 @@
 
 ## [Unreleased]
 ### Added
+- Added support for IntelliJ 2020.3 ([#19](https://github.com/olivernybroe/phpinsights-intellij/pull/19))
 
-### Changed
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
 ## [1.1.1]
 ### Added
 - Add support for configuring the timeout
