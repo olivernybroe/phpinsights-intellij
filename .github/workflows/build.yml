@@ -47,7 +47,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
-          java-version: 1.8
+          java-version: 11
 
       # Cache Gradle dependencies
       - name: Setup Cache
@@ -90,7 +90,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
-          java-version: 1.8
+          java-version: 11
 
       # Cache Gradle dependencies
       - name: Setup Cache
@@ -145,7 +145,7 @@ jobs:
         with:
           plugin-location: plugin-artifact/${{ needs.build.outputs.artifact }}
           ide-versions: |
-            ideaIU:2020.1
+            ideaIU:LATEST-EAP-SNAPSHOT
 
       # Print the output of the verify step
       - name: Print Logs
