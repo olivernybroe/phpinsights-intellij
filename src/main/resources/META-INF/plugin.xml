@@ -17,26 +17,35 @@
     <depends>com.jetbrains.php</depends>
 
     <extensions defaultExtensionNs="com.intellij">
+        <applicationService
+                serviceImplementation="com.jetbrains.php.tools.quality.phpstan.PhpStanConfigurationManager$PhpStanAppConfigurationManager"/>
         <projectService serviceImplementation="com.phpinsights.phpinsights.PhpInsightsBlackList"/>
-        <projectService serviceImplementation="com.phpinsights.phpinsights.PhpInsightsConfiguration"/>
-
-        <localInspection language="PHP" shortName="PhpInsightsInspection" displayName="PHP Insights validation" groupPath="PHP" groupName="Quality tools"
-                         enabledByDefault="true" level="WEAK WARNING"
-                         implementationClass="com.phpinsights.phpinsights.PhpInsightsInspection"/>
-
-        <externalAnnotator language="PHP" implementationClass="com.phpinsights.phpinsights.PhpInsightsAnnotator"/>
-        <projectConfigurable groupId="settings.php.quality.tools" instance="com.phpinsights.phpinsights.PhpInsightsConfigurable"/>
+        <projectService serviceImplementation="com.jetbrains.php.tools.quality.phpstan.PhpStanProjectConfiguration"/>
+        <projectService serviceImplementation="com.jetbrains.php.tools.quality.phpstan.PhpStanConfigurationManager"/>
+        <projectService
+                serviceImplementation="com.jetbrains.php.tools.quality.phpstan.PhpStanConfigurationManager$PhpStanProjectConfigurationManager"/>
+        <globalInspection language="PHP" shortName="PhpStanGlobal"
+                          groupPath="PHP"
+                          groupKey="inspection.php.group.quality.tools"
+                          enabledByDefault="false"
+                          level="WEAK WARNING"
+                          implementationClass="com.jetbrains.php.tools.quality.phpstan.PhpStanGlobalInspection"
+                          key="inspection.php.stan.global.display.name" bundle="messages.PhpStanBundle"/>
+        <externalAnnotator language="PHP" implementationClass="com.jetbrains.php.tools.quality.phpstan.PhpStanAnnotatorProxy"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.jetbrains.php">
+        <tools.projectConfigurableForm instance="com.jetbrains.php.tools.quality.phpstan.PhpStanConfigurable"/>
+        <composerConfigClient implementation="com.jetbrains.php.tools.quality.phpstan.PhpStanComposerConfig"/>
+        <tools.quality.type implementation="com.jetbrains.php.tools.quality.phpstan.PhpStanQualityToolType"/>
+        <openSettingsProvider implementation="com.jetbrains.php.tools.quality.phpstan.PhpStanOpenSettingsProvider"/>
+
     </extensions>
 
     <actions>
-        <group id="PHPInsightsGroup">
-            <add-to-group group-id="PHPQualityToolsAddToIgnoredList" anchor="last"/>
-            <action id="PHPInsightsAddToIgnored"
-                    class="com.phpinsights.phpinsights.PhpInsightsAddToIgnoredAction"
-                    text="Add to PHPInsights Ignore List" description="Add to PHPInsights Ignore List"/>
-        </group>
+        <action id="PhpStanAddToIgnored"
+                class="com.phpinsights.phpinsights.PhpInsightsAddToIgnoredAction">
+            <add-to-group group-id="PHPQualityToolsAddToIgnoredList"/>
+        </action>
     </actions>
 </idea-plugin>

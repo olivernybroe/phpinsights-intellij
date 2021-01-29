@@ -1,15 +1,15 @@
 package com.phpinsights.phpinsights;
 
-import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.util.xmlb.XmlSerializer;
-import com.intellij.util.xmlb.XmlSerializerUtil;
+import com.intellij.openapi.util.NlsContexts;
+import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.util.xmlb.annotations.Attribute;
 import com.intellij.util.xmlb.annotations.Transient;
+import com.jetbrains.php.tools.quality.QualityToolConfiguration;
+import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -21,9 +21,10 @@ import org.jetbrains.annotations.Nullable;
     name = PhpInsightsConfiguration.STATE_NAME,
     storages = {@Storage(PhpInsightsConfiguration.STATE_STORAGE)}
 )
-public class PhpInsightsConfiguration implements PersistentStateComponent<PhpInsightsConfiguration> {
+public class PhpInsightsConfiguration implements QualityToolConfiguration {
     @NonNls public static final String STATE_NAME = "PhpInsightsConfiguration";
     @NonNls public static final String STATE_STORAGE = "$WORKSPACE_FILE$";
+    private int maxMessagesPerFile = PhpInsightsConfigurationManager.DEFAULT_MAX_MESSAGES_PER_FILE;
     private String phpInsightPath = "";
     private int timeoutMs = 5000;
 
@@ -44,17 +45,50 @@ public class PhpInsightsConfiguration implements PersistentStateComponent<PhpIns
         this.phpInsightPath = toolPath;
     }
 
+    @Override
+    public int getMaxMessagesPerFile() {
+        return maxMessagesPerFile;
+    }
+
+    @Override
+    public QualityToolConfiguration clone() {
+        PhpInsightsConfiguration settings = new PhpInsightsConfiguration();
+        clone(settings);
+        return settings;
+    }
+
+    public PhpInsightsConfiguration clone(@NotNull PhpInsightsConfiguration settings) {
+        settings.phpInsightPath = phpInsightPath;
+        settings.maxMessagesPerFile = maxMessagesPerFile;
+        settings.timeoutMs = timeoutMs;
+        return settings;
+    }
+
     @NonNls
     @Attribute("tool_path")
     @Nullable
     public String getSerializedToolPath() {
-        return FileUtil.toSystemIndependentName(this.phpInsightPath);
+        return serialize(this.phpInsightPath);
     }
 
     public void setSerializedToolPath(@Nullable String configurationFilePath) {
-        this.phpInsightPath = configurationFilePath != null
-            ? FileUtil.toSystemDependentName(configurationFilePath)
-            : null;
+        this.phpInsightPath = deserialize(configurationFilePath);
+    }
+
+    @Override
+    public @Nls String getId() {
+        return PhpInsightsBundle.message("LOCAL");
+    }
+
+    @Override
+    @NotNull
+    public @NlsContexts.Label String getPresentableName(@Nullable Project project) {
+        return getId();
+    }
+
+    @Override
+    public String getInterpreterId() {
+        return null;
     }
 
     @NonNls
@@ -67,30 +101,18 @@ public class PhpInsightsConfiguration implements PersistentStateComponent<PhpIns
         this.timeoutMs = timeout;
     }
 
-
-    /**
-     * @return a component state. All properties, public and annotated fields are serialized. Only values, which differ
-     * from the default (i.e., the value of newly instantiated class) are serialized. {@code null} value indicates
-     * that the returned state won't be stored, as a result previously stored state will be used.
-     * @see XmlSerializer
-     */
-    @Nullable
     @Override
-    public PhpInsightsConfiguration getState() {
-        return this;
-    }
+    public int compareTo(@NotNull QualityToolConfiguration o) {
+        if (!(o instanceof PhpInsightsConfiguration)) {
+            return 1;
+        }
 
-    /**
-     * This method is called when new component state is loaded. The method can and will be called several times, if
-     * config files were externally changed while IDE was running.
-     * <p>
-     * State object should be used directly, defensive copying is not required.
-     *
-     * @param state loaded component state
-     * @see XmlSerializerUtil#copyBean(Object, Object)
-     */
-    @Override
-    public void loadState(@NotNull PhpInsightsConfiguration state) {
-        XmlSerializerUtil.copyBean(state, this);
+        if (StringUtil.equals(getPresentableName(null), PhpInsightsBundle.message("LOCAL"))) {
+            return -1;
+        }
+        else if (StringUtil.equals(o.getPresentableName(null), PhpInsightsBundle.message("LOCAL"))) {
+            return 1;
+        }
+        return StringUtil.compare(getPresentableName(null), o.getPresentableName(null), false);
     }
 }

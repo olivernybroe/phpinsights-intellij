@@ -6,7 +6,7 @@ import com.jetbrains.php.tools.quality.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class PhpInsightsQualityToolType extends QualityToolType {
+public class PhpInsightsQualityToolType extends QualityToolType<PhpInsightsConfiguration> {
     public static final PhpInsightsQualityToolType INSTANCE = new PhpInsightsQualityToolType();
     
     @Override
@@ -20,22 +20,22 @@ public class PhpInsightsQualityToolType extends QualityToolType {
     }
 
     @Override
-    protected @NotNull QualityToolConfigurationManager getConfigurationManager(@NotNull Project project) {
-        return null;
+    protected @NotNull QualityToolConfigurationManager<PhpInsightsConfiguration> getConfigurationManager(@NotNull Project project) {
+        return PhpInsightsConfigurationManager.getInstance(project);
     }
 
     @Override
     protected @NotNull QualityToolValidationInspection getInspection() {
+        return new PhpInsightsValidationInspection();
+    }
+
+    @Override
+    protected @Nullable QualityToolConfigurationProvider<PhpInsightsConfiguration> getConfigurationProvider() {
         return null;
     }
 
     @Override
-    protected @Nullable QualityToolConfigurationProvider getConfigurationProvider() {
-        return null;
-    }
-
-    @Override
-    protected @NotNull QualityToolConfigurableForm createConfigurableForm(@NotNull Project project, QualityToolConfiguration qualityToolConfiguration) {
+    protected @NotNull QualityToolConfigurableForm<PhpInsightsConfiguration> createConfigurableForm(@NotNull Project project, PhpInsightsConfiguration phpInsightsConfiguration) {
         return null;
     }
 
@@ -45,13 +45,13 @@ public class PhpInsightsQualityToolType extends QualityToolType {
     }
 
     @Override
-    protected @NotNull QualityToolProjectConfiguration getProjectConfiguration(@NotNull Project project) {
+    protected @NotNull QualityToolProjectConfiguration<PhpInsightsConfiguration> getProjectConfiguration(@NotNull Project project) {
         return null;
     }
 
     @NotNull
     @Override
-    protected QualityToolConfiguration createConfiguration() {
+    protected PhpInsightsConfiguration createConfiguration() {
         return null;
     }
 }

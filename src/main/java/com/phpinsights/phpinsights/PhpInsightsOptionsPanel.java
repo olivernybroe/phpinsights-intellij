@@ -5,28 +5,27 @@ import com.intellij.openapi.ui.TextBrowseFolderListener;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.ui.DocumentAdapter;
 import com.intellij.ui.components.JBCheckBox;
+import com.jetbrains.php.config.interpreters.PhpTextFieldWithSdkBasedBrowse;
+import com.jetbrains.php.tools.quality.QualityToolCommonConfigurable;
+import com.jetbrains.php.tools.quality.QualityToolsOptionsPanel;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 
+import static com.jetbrains.php.lang.inspections.PhpInspectionsUtil.createPanelWithSettingsLink;
+
 /**
  * This class is used for the preferences in inspection window.
  */
-class PhpInsightsOptionsPanel {
-    private JBCheckBox showInsightNameCheckBox;
-    private TextFieldWithBrowseButton browseButton;
+class PhpInsightsOptionsPanel extends QualityToolsOptionsPanel {
+    private PhpTextFieldWithSdkBasedBrowse browseButton;
     private JPanel panel;
+    private JPanel myLinkPanel;
 
-    PhpInsightsOptionsPanel(PhpInsightsInspection inspection) {
-        // Add the show insight name button.
-        this.showInsightNameCheckBox.setSelected(inspection.SHOW_INSIGHT_NAMES);
-        this.showInsightNameCheckBox.addActionListener(
-            e -> inspection.SHOW_INSIGHT_NAMES = this.showInsightNameCheckBox.isSelected()
-        );
-
+    PhpInsightsOptionsPanel(PhpInsightsGlobalInspection inspection) {
         // Add the config path browse button.
-        browseButton.setText(inspection.CONFIG_PATH);
+        browseButton.setText(inspection.config);
         browseButton.addBrowseFolderListener(
             new TextBrowseFolderListener(
                 new FileChooserDescriptor(
@@ -41,13 +40,24 @@ class PhpInsightsOptionsPanel {
         );
         browseButton.getTextField().getDocument().addDocumentListener(new DocumentAdapter() {
             protected void textChanged(@NotNull DocumentEvent e) {
-                inspection.CONFIG_PATH = browseButton.getText();
+                inspection.config = browseButton.getText();
             }
         });
 
     }
 
-    public JComponent getContentPane() {
+    private void createUIComponents() {
+        myLinkPanel = createPanelWithSettingsLink(PhpInsights.TOOL_NAME.toString(),
+                QualityToolCommonConfigurable.class,
+                QualityToolCommonConfigurable::new,
+                i -> i.showConfigurable(PhpInsights.TOOL_NAME.toString()));
+    }
+
+    @Override
+    public JPanel getOptionsPanel() {
         return panel;
+    }
+
+    public void init() {
     }
 }
